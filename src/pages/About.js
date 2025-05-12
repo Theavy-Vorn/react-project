@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProduct } from '../services/productAction';
+import { fetchAllProducts } from '../redux/actions/productActions';
 
-const About = () => {
-    return (
-        <div>
-            <h1>About page</h1>
-        </div>
-    );
+
+export default function About(){
+    const dispatch = useDispatch()
+    const {products} = useSelector(state =>state.proReducer)
+    useEffect(() =>{
+        //subscribe to store
+        dispatch(fetchAllProducts)
+    },[])
+    return(
+        <main>
+            <h2>
+                About page
+            </h2>
+        </main>
+    )
 }
-
-export default About;
