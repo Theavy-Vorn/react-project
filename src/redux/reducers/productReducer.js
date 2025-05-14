@@ -1,4 +1,4 @@
-// import { actionTypes } from "../actions/actionType"
+import { actionTypes } from "../actions/actionType"
 
 // const initialState = {
 //     products:[]
@@ -13,16 +13,26 @@
 //                 return state
 //     }
 // }
+// productReducer.js
+
 const initialState = {
-  products: []
+  products: [],
+  categories: [],
+  isLoading: true,
 };
 
 export const productReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'FETCH_PRODUCTS':
+    case actionTypes.FETCH_PRODUCTS:
       return {
         ...state,
-        products: action.payload
+        products: action.payload,
+        isLoading: false,
+      };
+    case actionTypes.FETCH_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload,
       };
     default:
       return state;

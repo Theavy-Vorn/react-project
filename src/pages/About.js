@@ -15,6 +15,9 @@ export default function About(){
         <main>
             <h2>
                 About page
+                {
+                    console.log(products)
+                }
             </h2>
         </main>
     )
