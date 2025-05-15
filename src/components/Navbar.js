@@ -1,13 +1,18 @@
 import { useState } from 'react';
+import { useSelector ,useDispatch } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { logout } from '../redux/actions/authAction';
 
 export default function Navbar(){
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector(state => state.authReducer)
+
   //for link page
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 mb-5">
+    <nav className="bg-gray-100 border-gray-200 dark:bg-gray-900 mb-5">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* Logo */}
         <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -42,8 +47,8 @@ export default function Navbar(){
 
         {/* Menu */}
         <div className={`${isOpen ? 'block' : 'hidden'} w-full md:block md:w-auto`} id="navbar-default">
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 
-                         md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 
+          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border rounded-lg 
+                         md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 
                          md:dark:bg-gray-900 dark:border-gray-700">
             <NavLink to="/" className={({isActive}) => isActive ? "block py-2 px-3 text-red-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white" : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white"}>Home</NavLink>
             <NavLink to="/about"  className={({isActive}) => isActive ? "block py-2 px-3 text-red-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white" : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white"} >About</NavLink>
@@ -55,8 +60,13 @@ export default function Navbar(){
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Insert</button>
           
           <button type="button"
-            onClick={() =>navigate("/signup")} 
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Sign Up</button>
+            onClick={() => isLogin ? dispatch(logout()) : navigate("/login")} 
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"> 
+          {
+            isLogin ? "Logout" : "Login"
+          }
+            </button>
+           
           </ul>
           
           

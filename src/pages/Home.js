@@ -66,11 +66,21 @@
 
 // export default Home;
 import React, { useEffect } from 'react';
-import Card from '../components/Card';
-import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllProducts, fetchCategories } from '../redux/actions/productActions';
+import Loading from '../components/Loading';
+
+const Card = ({ imageUrl, title }) => {
+  return (
+    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+      <img className="rounded-t-lg w-full h-48 object-cover" src={imageUrl} alt={title} />
+      <div className="p-4">
+        <h5 className="text-lg font-bold tracking-tight text-gray-900">{title}</h5>
+      </div>
+    </div>
+  );
+};
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -82,7 +92,7 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className='mx-auto px-5 justify-items-center'>
+    <div className='mx-auto px-5 justify-items-center container'>
       <h1 className="text-2xl font-bold my-4">Product</h1>
       <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-4">
         {isLoading ? (
@@ -95,7 +105,7 @@ const Home = () => {
             <div key={p.id} className="col-span-2 md:col-span-2 lg:col-span-3">
               <Link to={`/read/${p.id}`}>
                 <Card
-                  imageUrl={p.images?.[0] || 'default.jpg'}
+                  imageUrl={p.images?.[0] || 'https://via.placeholder.com/300'}
                   title={p.title}
                 />
               </Link>

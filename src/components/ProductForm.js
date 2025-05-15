@@ -101,7 +101,7 @@ export default function ProductForm({edit}){
         }
     }
     return(
-        <main>
+        <main >
             <form className="max-w-sm mx-auto">
                 <div className="mb-5">
                     <label
